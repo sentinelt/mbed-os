@@ -22,7 +22,7 @@ using namespace mbed;
 InternetSocket::InternetSocket()
     : _stack(0), _socket(0), _timeout(osWaitForever),
       _readers(0), _writers(0), _pending(0),
-      _factory_allocated(false)
+      _destroy_on_close(false)
 {
 }
 
@@ -82,7 +82,7 @@ nsapi_error_t InternetSocket::close()
     _lock.unlock();
 
     // When allocated by accept() call, will self desctruct on close();
-    if (_factory_allocated) {
+    if (_destroy_on_close) {
         delete this;
     }
     return ret;

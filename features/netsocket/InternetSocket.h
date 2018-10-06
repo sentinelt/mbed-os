@@ -234,7 +234,7 @@ protected:
     uint8_t _readers;
     uint8_t _writers;
     volatile unsigned _pending;
-    bool _factory_allocated;
+    bool _destroy_on_close;
 
     // Event flags
     static const int READ_FLAG     = 0x1u;

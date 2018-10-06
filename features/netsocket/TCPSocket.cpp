@@ -24,7 +24,7 @@ TCPSocket::TCPSocket()
 
 TCPSocket::~TCPSocket()
 {
-    _factory_allocated = false;
+    _destroy_on_close = false;
     close();
 }
 
@@ -268,7 +268,7 @@ TCPSocket *TCPSocket::accept(nsapi_error_t *error)
         if (0 == ret) {
             connection = new TCPSocket();
             connection->_lock.lock();
-            connection->_factory_allocated = true; // Destroy automatically on close()
+            connection->_destroy_on_close = true;
             connection->_remote_peer = address;
             connection->_stack = _stack;
             connection->_socket = socket;
